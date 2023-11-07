@@ -1,0 +1,82 @@
+# Python3 manifest example
+
+loader.entrypoint = "file:{{ gramine.libos }}"
+libos.entrypoint = "{{ entrypoint }}"
+
+loader.log_level = "{{ log_level }}"
+
+loader.env.LD_LIBRARY_PATH = "/lib:/lib:{{ arch_libdir }}:/usr{{ arch_libdir }}"
+loader.env.INSIDE_SGX = "1"
+loader.env.TLS = { passthrough = true }
+loader.env.RA_TYPE = { passthrough = true }
+loader.env.RA_TLS_ALLOW_DEBUG_ENCLAVE_INSECURE = { passthrough = true }
+loader.env.RA_TLS_ALLOW_OUTDATED_TCB_INSECURE = { passthrough = true }
+loader.env.RA_TLS_MRENCLAVE = { passthrough = true }
+loader.env.RA_TLS_MRSIGNER = { passthrough = true }
+loader.env.RA_TLS_ISV_SVN = { passthrough = true }
+loader.env.RA_TLS_ISV_PROD_ID = { passthrough = true }
+loader.env.RA_TLS_EPID_API_KEY = { passthrough = true }
+loader.env.MYAPP_DATA = { passthrough = true }
+
+
+loader.argv = ["./python", "-m", "enclave.make_graph"]
+# loader.argv = ["./python", "-m", "site"]
+
+sys.enable_sigterm_injection = true
+
+
+fs.mounts = [
+  { path = "/lib", uri = "file:{{ gramine.runtimedir() }}" },
+  { path = "{{ arch_libdir }}", uri = "file:{{ arch_libdir }}" },
+  { path = "/usr/{{ arch_libdir }}", uri = "file:/usr/{{ arch_libdir }}" },
+  { path = "{{ entrypoint }}", uri = "file:{{ entrypoint }}" },
+
+  { path = "/usr/bin/python3.9", uri = "file:/usr/bin/python3.9"},
+#  { path = "/usr/lib/libpython3.9.so.1.0", uri = "file:/usr/lib/libpython3.9.so.1.0"},
+  { path = "/usr/lib/python3.9", uri = "file:/usr/lib/python3.9/"},
+  
+  { path = "/usr/lib/python3.9/dist-packages", uri = "file:{{ venvpath }}/lib/python3.9/site-packages/"},
+
+  { type = "tmpfs", path = "/tmp" },
+
+  { path = "/input", uri = "file:/gramine-dummy-attester/dummyattester/input_data"},
+  { path = "/output", uri = "file:/gramine-dummy-attester/dummyattester/output_data"},
+  { type = "encrypted", path = "/data/", uri = "file:/gramine-dummy-attester/dummyattester/enclave_data/", key_name = "_sgx_mrenclave" },
+
+]
+
+sys.stack.size = "2M"
+sys.enable_extra_runtime_domain_names_conf = true
+
+sgx.debug = {{ 'true' if debug == '1' else 'false' }}
+# sgx.debug = true
+
+sgx.edmm_enable = {{ 'true' if env.get('EDMM', '0') == '1' else 'false' }}
+sgx.nonpie_binary = true
+sgx.enclave_size = "256M"
+sgx.max_threads = 2
+
+sgx.remote_attestation = "{{ ra_type }}"
+sgx.ra_client_spid = "{{ ra_client_spid }}"
+sgx.ra_client_linkable = {{ 'true' if ra_client_linkable == '1' else 'false' }}
+
+sgx.trusted_files = [
+  "file:{{ gramine.libos }}",
+  "file:{{ entrypoint }}",
+  "file:{{ gramine.runtimedir() }}/",
+  "file:{{ arch_libdir }}/",
+  "file:/usr{{ arch_libdir }}/",
+
+  "file:/usr/lib/python3.9/",
+  "file:/usr/bin/python3.9/",
+#  "file:/usr/lib/libpython3.9.so.1.0",
+  
+  "file:enclave/",
+  # Use this to build with dependencies pulled in from the venv environment.
+  # But reinvestigate for reproducibility before deploying
+  #"file:{{ venvpath }}/lib/python3.9/site-packages/networkx/",
+]
+
+# sgx.allowed_files = [
+#  "file:/gramine-dummy-attester/dummyattester/untrustedhost",
+# ]

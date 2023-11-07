@@ -1,0 +1,7 @@
+__pycache__/
+*python.manifest
+*python.manifest.sgx
+*python.sig
+*python.token
+.env
+*~
