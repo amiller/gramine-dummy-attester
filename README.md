@@ -13,9 +13,11 @@ This builds and prints the MRENCLAVE.
 
 While best effort lasts, this is a server that returns dummy attestations on arbitrary report data.
 ```
-docker compose exec dummyattester bash
-curl http://dummyattest.ln.soc1024.com/9113b0be77ed5d0d68680ec77206b8d587ed40679b71321ccdd5405e4d54a6820000000000000000000000000000000000000000000000000000000000000000 | bash scripts/fetchandverify.sh 
+docker compose run --rm dummyattester bash -c \
+ "curl http://dummyattest.ln.soc1024.com/9113b0be77ed5d0d68680ec77206b8d587ed40679b71321ccdd5405e4d54a6820000000000000000000000000000000000000000000000000000000000000000 | bash scripts/fetchandverify.sh"
 ```
+
+To see how this server works look at `flaskserver.py` and 
 
 ## Verify the report (untrusted, this could be done in RAVE)
 ```

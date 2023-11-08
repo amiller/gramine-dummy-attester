@@ -30,6 +30,7 @@ ARG SGX=1
 ENV SGX=$SGX
 
 ADD ./dummyattester/ /gramine-dummy-attester/dummyattester
+ADD ./scripts /gramine-dummy-attester/dummyattester/scripts
 
 WORKDIR /gramine-dummy-attester/dummyattester
 RUN mkdir -p input_data output_data enclave_data
