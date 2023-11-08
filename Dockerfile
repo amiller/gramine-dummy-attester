@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED 1
 ENV VENV_PATH=/root/.venvs/gramine
 
-RUN apt-get update && apt-get install -y python3-venv npm software-properties-common jq
+RUN apt-get update && apt-get install -y python3-venv npm software-properties-common jq netcat
 RUN python3.9 -m venv $VENV_PATH
 
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -21,7 +21,7 @@ ARG RA_TYPE=epid
 ENV RA_TYPE=$RA_TYPE
 ARG RA_CLIENT_SPID=51CAF5A48B450D624AEFE3286D314894
 ENV RA_CLIENT_SPID=$RA_CLIENT_SPID
-ARG RA_CLIENT_LINKABLE=0
+ARG RA_CLIENT_LINKABLE=1
 ENV RA_CLIENT_LINKABLE=$RA_CLIENT_LINKABLE
 
 ARG DEBUG=0

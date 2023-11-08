@@ -4,7 +4,7 @@
 
 ```
 docker compose build
-docker compose run --rm attester
+docker compose run --rm dummyattester
 ```
 
 This builds the MRENCLAVE.
@@ -14,5 +14,15 @@ The Dockerfile build includes installing python venv packages, according to the 
 
 ```
 docker compose -f docker-compose-sgx.yml build
-docker compose -f docker-compose-sgx.yml run --rm attester gramine-sgx ./python
+docker compose -f docker-compose-sgx.yml run --rm dummyattester run.sh
+```
+
+## Complete the EPID attestation (untrusted)
+```
+gramine-sgx-ias-request report -k $RA_API_KEY -q quote -r datareport -s datareportsig
+```
+
+## Verify the report (untrusted, this could be done in RAVE)
+```
+gramine-sgx-ias-verify-report -E $MRENCLAVE -v -r datareport -s datareportsig --allow-outdated-tcb
 ```

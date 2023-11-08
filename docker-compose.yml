@@ -15,7 +15,9 @@ services:
       DEBUG: "${DEBUG-0}"
       GRAMINE_IMG_TAG: $GRAMINE_IMG_TAG
     volumes:
+      - data:/data
       - untrustedhost:/untrustedhost
 
 volumes:
   untrustedhost:
+  data:

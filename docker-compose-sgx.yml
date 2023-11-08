@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
 
-  flowdemo:
+  dummyattester:
     image: gramine-dummy-attester
     build:
       context: ./

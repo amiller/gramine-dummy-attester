@@ -19,7 +19,7 @@ loader.env.RA_TLS_EPID_API_KEY = { passthrough = true }
 loader.env.MYAPP_DATA = { passthrough = true }
 
 
-loader.argv = ["./python", "-m", "enclave.make_graph"]
+loader.argv = ["./python", "-m", "enclave.main"]
 # loader.argv = ["./python", "-m", "site"]
 
 sys.enable_sigterm_injection = true

@@ -1,22 +1,26 @@
 import sys
-import json
 import hashlib
 
-while True:
-    line = sys.stdin.readline()
+if __name__ == '__main__':
+    while True:
+        # Read a message specifying a user report data (64 bytes)
+        line = sys.stdin.readline()
+        hexreportdata = line.strip()
+        assert len(hexreportdata) == 128
+        
+        # TODO: abi encoding?
+        # Address String
+        message = bytes.fromhex(hexreportdata)
 
-    obj = line.split()
-    assert len(obj) == 2
-    # Address String
-    address = obj[0]
-    message = obj[1]
-    sha2hash = hashlib.sha256(obj[0] + obj[1])
+        # Set the user data
+        with open("/dev/attestation/user_report_data", "wb") as f:
+            f.write(message)
 
-    with open("/dev/attestation/user_report_data", "wb") as f:
-        f.write(sha2hash)
+        # Read the quote
+        with open("/dev/attestation/quote", "rb") as f:
+            quote = f.read()
 
-    with open("/dev/attestation/quote", "rb") as f:
-        quote = f.read()
-    
-    # Sha2 hash
-    sys.stdout.write(quote.hex() + '\n')
+        # Write the quote
+        sys.stdout.write(quote.hex() + '\n')
+        sys.stdout.flush()
+        
