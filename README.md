@@ -8,6 +8,8 @@ docker compose run --rm dummyattester
 ```
 
 This builds and prints the MRENCLAVE.
+Currently this is `acbc315e9c372e43dceee812f466fc36594f6402d168cf2b12862a37c3c62927`
+
 
 ## Use a web service to fetch a dummy attestation and check it
 
