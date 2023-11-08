@@ -15,6 +15,7 @@ services:
       DEBUG: "${DEBUG-0}"
       GRAMINE_IMG_TAG: $GRAMINE_IMG_TAG
     volumes:
+      - ./data:/data
       - untrustedhost:/untrustedhost
       - /var/run/aesmd/aesm.socket:/var/run/aesmd/aesm.socket
     devices:
@@ -23,3 +24,4 @@ services:
 
 volumes:
   untrustedhost:
+  data:

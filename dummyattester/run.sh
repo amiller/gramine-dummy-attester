@@ -5,5 +5,4 @@ set -x
 
 cd /gramine-dummy-attester/dummyattester
 
-python testonce.py | tee data/testquote
-
+python testonce.py | tee /data/testquote
