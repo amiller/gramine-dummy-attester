@@ -37,3 +37,12 @@ docker compose -f docker-compose-sgx.yml run --rm dummyattester bash run.sh
 ```
 gramine-sgx-ias-request report -k $RA_API_KEY -q quote -r datareport -s datareportsig
 ```
+
+
+## Running a server
+```
+docker compose -f docker-compose-sgx.yml run --detach dummyattester python server.py
+# TODO: how to find the ip addr of docker compose?
+docker inspect gramine-dummy-attester-dummyattester-run-c95f0bc336da | grep IPAddress
+CMD_HOST=172.18.0.2 flask --app flaskserver run --host 0.0.0.0
+```
