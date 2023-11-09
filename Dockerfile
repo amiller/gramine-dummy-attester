@@ -17,7 +17,7 @@ WORKDIR /
 COPY requirements.txt requirements.txt 
 RUN $VENV_PATH/bin/pip install --no-compile -r requirements.txt
 
-ARG RA_TYPE=dcap
+ARG RA_TYPE=epid
 ENV RA_TYPE=$RA_TYPE
 ARG RA_CLIENT_SPID=51CAF5A48B450D624AEFE3286D314894
 ENV RA_CLIENT_SPID=$RA_CLIENT_SPID

@@ -22,6 +22,28 @@ services:
       - /dev/sgx_enclave
       - /dev/sgx_provision
 
+  dummyattester-dcap:
+    image: gramine-dummy-attester
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        DEBUG: "${DEBUG-0}"
+        RA_TYPE: "dcap"
+    environment:
+      TLS: 0
+      RA_TYPE: dcap
+      SGX: 1 #-1 for plain, 0 for gramine-direct
+      DEBUG: "${DEBUG-0}"
+      GRAMINE_IMG_TAG: $GRAMINE_IMG_TAG
+    volumes:
+      - ./data:/data
+      - untrustedhost:/untrustedhost
+      - /var/run/aesmd/aesm.socket:/var/run/aesmd/aesm.socket
+    devices:
+      - /dev/sgx_enclave
+      - /dev/sgx_provision
+
 volumes:
   untrustedhost:
   data:
