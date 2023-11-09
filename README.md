@@ -1,5 +1,11 @@
 # Dummy attester as a Gramine enclave
 
+The enclave itself only interacts on stdin/stdout.
+It runs in a loop, expecting to receive a 128 byte message on stdin, and producing a quote in response.
+It therefore has an extremely simple interface.
+
+To make it more practical, this also comes with a socket server `dummyattester/server.py`. This runs on the same docker container, but outside the enclave. In fact it invokes the gramine process, thus having access to its stdin/stout. Outside the docker environment I also include a flask server.
+
 ## Build the enclave (no SGX needed)
 
 ```
