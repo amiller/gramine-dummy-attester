@@ -17,7 +17,7 @@ docker compose run --rm dummyattester-dcap
 ```
 
 This builds and prints the MRENCLAVE.
-Currently this is `acbc315e9c372e43dceee812f466fc36594f6402d168cf2b12862a37c3c62927` for EPID, and `185237a9e29c9c47ea060b3740a285ce2e36a0b7b11e049488f4c0c77329a7a0` for DCAP.
+Currently this is `e3c2f2a5b840d89e069acaffcadb6510ef866a73d3a9ee57100ed5f8646ee4bb` for EPID, and `dc43f8c42d8e5f52c8bbd68f426242153f0be10630ff8cca255129a3ca03d273` for DCAP.
 
 ## Use a web service to fetch a dummy attestation and check it
 
