@@ -19,7 +19,7 @@ services:
       - untrustedhost:/untrustedhost
 
   dummyattester-dcap:
-    image: gramine-dummy-attester
+    image: gramine-dummy-attester-dcap
     build:
       context: ./
       dockerfile: Dockerfile

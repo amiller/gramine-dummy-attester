@@ -23,7 +23,7 @@ services:
       - /dev/sgx_provision
 
   dummyattester-dcap:
-    image: gramine-dummy-attester
+    image: gramine-dummy-attester-dcap
     build:
       context: ./
       dockerfile: Dockerfile
