@@ -6,16 +6,18 @@ It therefore has an extremely simple interface.
 
 To make it more practical, this also comes with a socket server `dummyattester/server.py`. This runs on the same docker container, but outside the enclave. In fact it invokes the gramine process, thus having access to its stdin/stout. Outside the docker environment I also include a flask server.
 
+The docker environment can be built in either EPID or DCAP mode.
+
 ## Build the enclave (no SGX needed)
 
 ```
 docker compose build
 docker compose run --rm dummyattester
+docker compose run --rm dummyattester-dcap
 ```
 
 This builds and prints the MRENCLAVE.
-Currently this is `acbc315e9c372e43dceee812f466fc36594f6402d168cf2b12862a37c3c62927`
-
+Currently this is `acbc315e9c372e43dceee812f466fc36594f6402d168cf2b12862a37c3c62927` for EPID, and `185237a9e29c9c47ea060b3740a285ce2e36a0b7b11e049488f4c0c77329a7a0` for DCAP.
 
 ## Use a web service to fetch a dummy attestation and check it
 
